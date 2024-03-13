@@ -1,0 +1,23 @@
+{% extends 'base.html.twig' %}
+ 
+{% block title %}Edit Country{% endblock %}
+ 
+{% block body %}
+    <div class="container">
+        <h2 class="text-center mt-5 mb-3">Edit Country</h2>
+        <div class="card">
+            <div class="card-header">
+                <a class="btn btn-outline-info float-right" href="{{ path('country_index') }}"> 
+                    View all countries
+                </a>
+            </div>
+            <div class="card-body">
+                {% include 'country/_form.html.twig' with {'button_label': 'Update Country', 'button_color': 'btn-outline-success'} %}
+                <a class="btn btn-outline-primary float-right mt-3" href="{{ path('country_update_one_api', {'id': country.id}) }}">
+                    Update country using API
+                </a>
+            </div>
+            
+        </div>
+    </div>
+{% endblock %}

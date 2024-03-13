@@ -1,0 +1,18 @@
+{{ form_start(form) }}
+    <div class="form-group">
+        {{ form_row(form.name, {'attr': {'class': 'form-control'}}) }}
+    </div>
+    <div class="form-group">
+        {{ form_row(form.capital, {'attr': {'class': 'form-control'}}) }}
+    </div>
+    <div class="form-group">
+        {{ form_label(form.independent) }}
+        <div class="form-check">
+            {{ form_widget(form.independent, {'attr': {'class': 'form-check-input'}}) }}
+        </div>
+    </div>
+    <div class="form-group">
+        {{ form_row(form.area, {'attr': {'class': 'form-control'}}) }}
+    </div>
+    <button class="btn {{ button_color|default('btn-outline-primary') }}  mt-3">{{ button_label|default('Save Country') }}</button>
+{{ form_end(form) }}

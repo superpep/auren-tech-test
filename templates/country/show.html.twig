@@ -1,0 +1,34 @@
+{% extends 'base.html.twig' %}
+ 
+{% block title %}Country{% endblock %}
+ 
+{% block body %}
+    <div class="container">
+        <h2 class="text-center mt-5 mb-3">Show Country</h2>
+        <div class="card">
+            <div class="card-header">
+                <a class="btn btn-outline-info float-right" href="{{ path('country_index') }}"> 
+                    View All countries
+                </a>
+            </div>
+            <div class="card-body">
+                <b class="text-muted">Name:</b>
+                <p>{{ country.name }}</p>
+                <b class="text-muted">Capital:</b>
+                <p>{{ country.capital }}</p>
+                <b class="text-muted">Independent:</b>
+                <p>{{ country.independent ? 'Yes' : 'No'}}</p>
+                <b class="text-muted">Area:</b>
+                <p>{{ country.area }}</p>
+                <b class="text-muted">Date Created:</b>
+                <p>{{ country.createdAt ? country.createdAt|date('Y-m-d H:i:s') : '' }}</p>
+                <b class="text-muted">Date Updated:</b>
+                <p>{{ country.updatedAt ? country.updatedAt|date('Y-m-d H:i:s') : '' }}</p>
+                <a class="btn btn-outline-primary float-right" href="{{ path('country_update_one_api', {'id': country.id}) }}">
+                    Update using API
+                </a>
+            </div>
+        </div>
+        
+    </div>
+{% endblock %}

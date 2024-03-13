@@ -1,0 +1,93 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Country index{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <h2 class="text-center mt-5 mb-3">Symfony Country Manager</h2>
+        <div class="card">
+            <div class="card-header d-flex justify-content-between align-items-center">
+                <a class="btn btn-outline-primary" href="{{ path('country_new') }}"> 
+                    Create New Country 
+                </a>
+                <form action="{{ path('country_index') }}" method="get" class="form-inline">
+                    <div class="form-group ml-2 mb-0">
+                        <label for="perPage" class="mr-2">Items per page:</label>
+                        <select name="perPage" id="perPage" class="form-control" onchange="this.form.submit()">
+                            <option value="5" {{ perPage == 5 ? 'selected' }}>
+                                5
+                            </option>
+                            <option value="10" {{ perPage == 10 ? 'selected' }}>
+                                10
+                            </option>
+                            <option value="15" {{ perPage == 15 ? 'selected' }}>
+                                15
+                            </option>
+                        </select>
+                    </div>
+                </form>
+            </div>
+            <div class="card-body">
+                <table class="table table-bordered">
+                    <tr>
+                        <th>Name</th>
+                        <th>Capital</th>
+                        <th>Independent</th>
+                        <th>Area</th>
+                        <th width="240px">Action</th>
+                    </tr>
+                    {% for country in countries %}
+                    <tr>
+                        <td>{{ country.name }}</td>
+                        <td>{{ country.capital }}</td>
+                        <td>{{ country.independent ? 'Yes' : 'No'}}</td>
+                        <td>{{ country.area }}</td>
+                        <td>
+                            <form method="post" action="{{ path('country_delete', {'id': country.id}) }}" onsubmit="return confirm('Are you sure you want to delete this item?');">
+                                <a
+                                    class="btn btn-outline-info"
+                                    href="{{ path('country_show', {'id': country.id}) }}">
+                                    Show
+                                </a>
+                                <a
+                                    class="btn btn-outline-success"
+                                    href="{{ path('country_edit', {'id': country.id}) }}">
+                                    Edit
+                                </a>
+ 
+                                <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ country.id) }}">
+                                <button class="btn btn-outline-danger">Delete</button>
+                            </form>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </table>
+                
+                {# Paginación #}
+                <nav aria-label="Page navigation example">
+                    <ul class="pagination">
+                        {% if pagination.prevUrl %}
+                            <li class="page-item">
+                                <a class="page-link" href="{{ pagination.prevUrl }}">Previous</a>
+                            </li>
+                        {% endif %}
+                        {% for page in pagination.pages %}
+                            <li class="page-item{% if page.isCurrent %} active{% endif %}">
+                                <a class="page-link" href="{{ page.url }}">{{ page.number }}</a>
+                            </li>
+                        {% endfor %}
+                        {% if pagination.nextUrl %}
+                            <li class="page-item">
+                                <a class="page-link" href="{{ pagination.nextUrl }}">Next</a>
+                            </li>
+                        {% endif %}
+                    </ul>
+                </nav>
+                
+                <a class="btn btn-outline-secondary" href="{{ path('country_update_api') }}"> 
+                    Update countries with API
+                </a>
+            </div>
+        </div>
+    </div>
+{% endblock %}
